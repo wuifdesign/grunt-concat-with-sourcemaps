@@ -42,8 +42,7 @@ grunt.initConfig({
 })
 ```
 
-Merging source map files
-------------------------
+### Merging source map files
 
 If input file has source map linkage (e.g. `//# sourceMappingURL=.*`), grunt-concat-with-sourcemaps will parse the source map
 and create a new source map including those file.
@@ -68,21 +67,39 @@ Root for all relative URLs in the source map. (Optional)
 Example
 ------------------------
 
+This example uses [grunt-contrib-coffee](https://github.com/gruntjs/grunt-contrib-coffee) and
+[grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify).
+
 ```
 grunt.initConfig({
   coffee: {
-    options: { sourceMap: true },
-    target: {
-      files: {
-        'src/file1.js': ['src/file1.coffee'],
-        'src/file2.js': ['src/file2.coffee'],
-      }
+    task_name: {
+      options: {
+        sourceMap: true
+      },
+      expand: true,
+      flatten: false,
+      cwd: 'coffee',
+      src: ['**/*.coffee'],
+      dest: './src',
+      ext: '.js'
     }
   },
   concat_with_sourcemaps: {
-    target: {
+    task_name: {
       files: {
         'dist/output.js': ['src/*.js']
+      }
+    }
+  },
+  uglify: {
+    task_name: {
+      options: {
+        sourceMap: true,
+        sourceMapIn: 'dist/output.js.map'
+      },
+      files: {
+        'dist/output.min.js': ['dist/output.js']
       }
     }
   }
@@ -94,7 +111,7 @@ The generated source map will refer to the original coffee script source files:
 ```
 {
   "version": 3,
-  "file": "output.js",
+  "file": "output.min.js",
   "sources": [
     "src/file-1.coffee",
     "src/file-2.coffee"
@@ -102,6 +119,4 @@ The generated source map will refer to the original coffee script source files:
   "names": [],
   "mappings": "..."
 }
-```node_modules
-   tasks
-   package.json
+```
