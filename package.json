@@ -1,0 +1,46 @@
+{
+  "name": "grunt-concat-with-sourcemaps",
+  "description": "Concatenate files and combine their source maps into one file",
+  "version": "0.0.1",
+  "homepage": "https://github.com/wuifdesign/grunt-concat-with-sourcemaps",
+  "author": {
+    "name": "Michael Wohlfahrter",
+    "url": "https://github.com/wuifdesign"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wuifdesign/grunt-concat-with-sourcemaps.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wuifdesign/grunt-concat-with-sourcemaps/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/wuifdesign/grunt-concat-with-sourcemaps/blob/master/LICENSE"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "dependencies": {
+    "concat-with-sourcemaps": "~1.0.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "concat-with-sourcemaps": "~1.0.0"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.2"
+  },
+  "keywords": [
+    "gruntplugin",
+    "concat",
+    "js",
+    "sourcemap"
+  ],
+  "files": [
+    "tasks",
+    "LICENSE"
+  ]
+}
