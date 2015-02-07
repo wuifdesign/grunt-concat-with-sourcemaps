@@ -52,7 +52,7 @@ module.exports = function (grunt) {
                             mappedFileName = sourceMapContent.sourceRoot + sourceMapContent.sources[0];
                         }
                         mappedFileName = mappedFileName.replace(/\.\.\//g, '');
-                        sourceMapContent.sourceRoot = options.sourceRoot;
+                        sourceMapContent.sourceRoot = null;
                         sourceMapContent.sources[0] = mappedFileName;
                         return '';
                     }
@@ -63,8 +63,11 @@ module.exports = function (grunt) {
                 concat.add(mappedFileName, sourceFileContent, sourceMapContent);
             }
 
+            var sourceMapObject = JSON.parse(concat.sourceMap);
+            sourceMapObject.sourceRoot = options.sourceRoot;
+
             grunt.file.write(f.dest, concat.content + '\n//# sourceMappingURL=' + destinationFileName + '.map');
-            grunt.file.write(f.dest + '.map', concat.sourceMap);
+            grunt.file.write(f.dest + '.map', JSON.stringify(sourceMapObject));
             grunt.log.writeln('Files created: "' + f.dest + '" and "' + f.dest + '.map"');
         });
     });
