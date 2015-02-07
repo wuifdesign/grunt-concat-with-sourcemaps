@@ -1,7 +1,7 @@
 {
   "name": "grunt-concat-with-sourcemaps",
   "description": "Concatenate files and combine their source maps into one file",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/wuifdesign/grunt-concat-with-sourcemaps",
   "author": {
     "name": "Michael Wohlfahrter",
