@@ -64,6 +64,14 @@ Default value: `''`
 
 Root for all relative URLs in the source map. (Optional)
 
+#### options.includeSourcesContent
+
+Type: `Boolean`
+Default value: `false`
+
+If set to true, the content of the sources will be added to the source maps. This is used, if you don't want to upload your
+source files. (Optional)
+
 Example
 ------------------------
 
