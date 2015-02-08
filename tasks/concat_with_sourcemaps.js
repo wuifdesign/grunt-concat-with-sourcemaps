@@ -15,6 +15,7 @@ module.exports = function (grunt) {
     grunt.registerMultiTask('concat_with_sourcemaps', 'Concatenate files and combine their source maps into 1 file', function () {
         var options = this.options({
             separator: grunt.util.linefeed,
+            includeSourcesContent: false,
             sourceRoot: ''
         });
 
@@ -52,8 +53,15 @@ module.exports = function (grunt) {
                             mappedFileName = sourceMapContent.sourceRoot + sourceMapContent.sources[0];
                         }
                         mappedFileName = mappedFileName.replace(/\.\.\//g, '');
+
+                        if(options.includeSourcesContent) {
+                            var sourcesContentPath = sourceMapContent.sourceRoot + sourceMapContent.sources[0];
+                            var sourcesContent = grunt.file.read(sourcesContentPath.replace(/\.\.\//g, ''));
+                            sourceMapContent.sourcesContent = [sourcesContent];
+                        }
+
+                        sourceMapContent.sources[0] = options.sourceRoot + mappedFileName;
                         sourceMapContent.sourceRoot = null;
-                        sourceMapContent.sources[0] = mappedFileName;
                         return '';
                     }
                     sourceFileContent += line;
@@ -63,11 +71,8 @@ module.exports = function (grunt) {
                 concat.add(mappedFileName, sourceFileContent, sourceMapContent);
             }
 
-            var sourceMapObject = JSON.parse(concat.sourceMap);
-            sourceMapObject.sourceRoot = options.sourceRoot;
-
             grunt.file.write(f.dest, concat.content + '\n//# sourceMappingURL=' + destinationFileName + '.map');
-            grunt.file.write(f.dest + '.map', JSON.stringify(sourceMapObject));
+            grunt.file.write(f.dest + '.map', concat.sourceMap);
             grunt.log.writeln('Files created: "' + f.dest + '" and "' + f.dest + '.map"');
         });
     });
