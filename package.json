@@ -31,7 +31,7 @@
     "concat-with-sourcemaps": "~1.0.0"
   },
   "peerDependencies": {
-    "grunt": "~0.4.2"
+    "grunt": ">=0.4.0"
   },
   "keywords": [
     "gruntplugin",
